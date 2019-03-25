@@ -36,16 +36,3 @@ while ((k < n) or np.sqrt(np.power(gk[0,0],2)+np.power(gk[1,0],2))) > e:
 
     k = k+1
     print(m1,m2)
-
-
-
-
-
-
-
-
-
-
-
-
-
