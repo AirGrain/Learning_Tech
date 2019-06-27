@@ -23,20 +23,20 @@ class NeuralNetwork(object):
         return (z_s, a_s)
     
     def backpropagation(self,y, z_s, a_s): # 反向计算
-            dw = []  # dl/dW
-            db = []  # dl/dB
-            deltas = [None] * len(self.weights)  # 存放每一层的error
-            # deltas[-1] = sigmoid'(z)*[partial l/partial y]
-            # 这里y是标注数据，a_s[-1]是最后一层的输出，差值就是二范数loss的求导
-            deltas[-1] =(y-a_s[-1])*(self.getDerivitiveActivationFunction(self.activations[-1]))(z_s[-1])
-            # Perform BackPropagation 
-            for i in reversed(range(len(deltas)-1)): 
-                deltas[i] = self.weights[i+1].T.dot(deltas[i+1])*(self.getDerivitiveActivationFunction(self.activations[i])(z_s[i]))
-            batch_size = y.shape[1]
-            db = [d.dot(np.ones((batch_size,1)))/float(batch_size) for d in deltas]
-            dw = [d.dot(a_s[i].T)/float(batch_size) for i,d in enumerate(deltas)]
-            # return the derivitives respect to weight matrix and biases
-            return dw, db
+        dw = []  # dl/dW
+        db = []  # dl/dB
+        deltas = [None] * len(self.weights)  # 存放每一层的error
+        # deltas[-1] = sigmoid'(z)*[partial l/partial y]
+	# 这里y是标注数据，a_s[-1]是最后一层的输出，差值就是二范数loss的求导
+        deltas[-1] =(y-a_s[-1])*(self.getDerivitiveActivationFunction(self.activations[-1]))(z_s[-1])
+	# Perform BackPropagation 
+        for i in reversed(range(len(deltas)-1)): 
+            deltas[i] = self.weights[i+1].T.dot(deltas[i+1])*(self.getDerivitiveActivationFunction(self.activations[i])(z_s[i]))
+        batch_size = y.shape[1]
+        db = [d.dot(np.ones((batch_size,1)))/float(batch_size) for d in deltas]
+        dw = [d.dot(a_s[i].T)/float(batch_size) for i,d in enumerate(deltas)]
+	# return the derivitives respect to weight matrix and biases
+        return dw, db
 
     def train(self, x, y, batch_size=5, epochs=100, lr = 0.01):
         # update weights and biases based on the output
