@@ -1,7 +1,7 @@
 ## 使用说明
 
 ### Step 1: 查找预训练模型
-打开tensor hub https://tfhub.dev/
+打开tensorflow hub https://tfhub.dev/
 输入想要使用的模型
 
 ### Step 2: 下载模型
